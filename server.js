@@ -33,20 +33,20 @@ router.get('/api/v1/getData', function(request, response) {
                 {id: 2, value: "Tuesday"},
                 {id: 3, value: "Wednesday"},
                 {id: 4, value: "Thursday"},
-                ]
-            },
-            {
-                question: 'What month is it?',
-                correctAnswer: 6,
-                answers: [
-                    {id: 1, value: "January"},
-                    {id: 2, value: "February"},
-                    {id: 3, value: "March"},
-                    {id: 4, value: "April"},
-                    {id: 5, value: "May"},
-                    {id: 6, value: "June"},
-                    ]
-            }
+            ]
+        },
+        {
+            question: 'What month is it?',
+            correctAnswer: 6,
+            answers: [
+                {id: 1, value: "January"},
+                {id: 2, value: "February"},
+                {id: 3, value: "March"},
+                {id: 4, value: "April"},
+                {id: 5, value: "May"},
+                {id: 6, value: "June"},
+            ]
+        }
     ];
     response.send(data);
 });
