@@ -1,15 +1,10 @@
-body {
+html, body 
+{
+    height: 100%;
     margin: 0;
-    font-family: 'Bitter', serif;
-    font-size: 24px;
+    padding: 0;
 }
-
-.spacer {
-    height: 30px;
-}
-
-.clickable:hover {
-    cursor: pointer;
-    color: #ffffff;
-    background-color: #001100
+#map 
+{
+    height: 100%;
 }

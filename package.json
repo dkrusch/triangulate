@@ -1,13 +1,13 @@
 {
-  "name": "eu-web-starter",
+  "name": "triangulate",
   "version": "0.0.0",
-  "description": "A basic example of a node.js `express` server with an HTML/CSS/jQuery front-end.",
+  "description": "Triangulates the center of multiple lat lng points",
   "main": "server.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/jessamynsmith/eu-web-starter"
+    "url": "https://github.com/dkrusch/triangulate"
   },
-  "author": "Jessamyn Smith",
+  "author": "Daniel Krusch",
   "dependencies": {
     "body-parser": "^1.15.1",
     "bower": "^1.7.9",
