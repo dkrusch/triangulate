@@ -1,3 +1,5 @@
+# triangulate
+Project that triangulates
 
      ,-----.,--.                  ,--. ,---.   ,--.,------.  ,------.
     '  .--./|  | ,---. ,--.,--. ,-|  || o   \  |  ||  .-.  \ |  .---'
@@ -9,7 +11,7 @@
 
 Welcome to your Node.js project on Cloud9 IDE!
 
-A basic example of a node.js `express` server with an HTML/CSS/jQuery front-end.
+A basic example of a node.js `express` server with an HTML/CSS/jQuery front-end. A project that triangulates the center of multiple lat lng points.
 
 ## Installing dependencies
 
