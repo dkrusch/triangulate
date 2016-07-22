@@ -23,32 +23,29 @@ router.use(bodyParser.json());
 router.use(express.static(path.resolve(__dirname, 'client')));
 
 // API Routes
-router.get('/api/v1/getData', function(request, response) {
-    var data = [
-        {
-            question: 'What day is it?',
-            correctAnswer: 2,
-            answers: [
-                {id: 1, value: "Monday"},
-                {id: 2, value: "Tuesday"},
-                {id: 3, value: "Wednesday"},
-                {id: 4, value: "Thursday"},
-            ]
-        },
-        {
-            question: 'What month is it?',
-            correctAnswer: 6,
-            answers: [
-                {id: 1, value: "January"},
-                {id: 2, value: "February"},
-                {id: 3, value: "March"},
-                {id: 4, value: "April"},
-                {id: 5, value: "May"},
-                {id: 6, value: "June"},
-            ]
-        }
-    ];
-    response.send(data);
+router.get('/api/v1/yelp/search', function(request, response) {
+    
+    // Request API access: http://www.yelp.com/developers/getting_started/api_access 
+    var Yelp = require('yelp');
+     
+    var yelp = new Yelp({
+        consumer_key: process.env.YELP_CONSUMER_KEY,
+        consumer_secret: process.env.YELP_CONSUMER_SECRET,
+        token: process.env.YELP_TOKEN,
+        token_secret: process.env.YELP_TOKEN_SECRET
+    });
+    
+     
+    // See http://www.yelp.com/developers/documentation/v2/search_api 
+    yelp.search({ term: 'food', location: 'Montreal' })
+    .then(function (data)
+    {
+      response.send(data);
+    })
+    .catch(function (err)
+    {
+      response.send(err);
+    });
 });
 
 router.post('/api/v1/postData', function(request, response) {

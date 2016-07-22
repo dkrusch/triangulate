@@ -19,6 +19,13 @@ A basic example of a node.js `express` server with an HTML/CSS/jQuery front-end.
 
     $ npm install
 
+## Setting environment variables
+
+1) $ export YELP_CONSUMER_KEY='consumer-key'
+2) $ export YELP_CONSUMER_SECRET='consumer-secret'
+3) $ export YELP_TOKEN='token'
+4) $ export YELP_TOKEN_SECRET='token-secret'
+
 ## Running the server
 
 1) Open `server.js` and start the app by clicking on the "Run" button in the top menu.
