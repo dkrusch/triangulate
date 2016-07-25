@@ -20,6 +20,8 @@ $( document ).ready(function()
     $("#locationInputs").on("submit", calculateLocation);
 });
 
+
+
 var removeMarkers = function()
 {
     for(var i = 0; i < gmarkers.length; i++)

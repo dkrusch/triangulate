@@ -13,12 +13,6 @@ Welcome to your Node.js project on Cloud9 IDE!
 
 A basic example of a node.js `express` server with an HTML/CSS/jQuery front-end. A project that triangulates the center of multiple lat lng points.
 
-## Installing dependencies
-
-1) Install dependencies from the Terminal:
-
-    $ npm install
-
 ## Setting environment variables
 
 1) $ export YELP_CONSUMER_KEY='consumer-key'
