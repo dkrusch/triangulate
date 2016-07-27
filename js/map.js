@@ -108,6 +108,7 @@ var parseInputs = function()
         }
         else 
         {
+
             // Converts the text from input into radians
             personLocations.push({lat: Math.radians(inputLat), lng: Math.radians(inputLng)});
             var myLatLng = {lat: inputLat, lng: inputLng};

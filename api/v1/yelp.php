@@ -1,6 +1,6 @@
 <?php
 
-$configs = include('config.php');
+$configs = include('../../config.php');
 
 /**
  * Yelp API v2.0 code sample.
@@ -21,15 +21,15 @@ $configs = include('config.php');
  */
 
 // Enter the path that the oauth library is in relation to the php file
-require_once('lib/OAuth.php');
+require_once('../../lib/OAuth.php');
 
 // Set your OAuth credentials here  
 // These credentials can be obtained from the 'Manage API Access' page in the
 // developers documentation (http://www.yelp.com/developers)
-$CONSUMER_KEY = getenv("YELP_CONSUMER_KEY");
-$CONSUMER_SECRET = getenv("YELP_CONSUMER_SECRET");
-$TOKEN = getenv("YELP_TOKEN");
-$TOKEN_SECRET = getenv("YELP_TOKEN_SECRET");
+$CONSUMER_KEY = $configs["YELP_CONSUMER_KEY"];
+$CONSUMER_SECRET = $configs["YELP_CONSUMER_SECRET"];
+$TOKEN = $configs["YELP_TOKEN"];
+$TOKEN_SECRET = $configs["YELP_TOKEN_SECRET"];
 
 $API_HOST = 'api.yelp.com';
 $DEFAULT_TERM = 'food';
