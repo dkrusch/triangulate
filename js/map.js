@@ -80,6 +80,11 @@ var calculateLocation = function(event)
     });
     gmarkers.push(marker);
     
+    $.getJSON("api/v1/yelp.php", function(data)
+    {
+        console.log(data);
+    });
+    
 }
 
 // Pushes objects containing lat and lng into an array
@@ -103,7 +108,6 @@ var parseInputs = function()
         }
         else 
         {
-            console.log("else")
             // Converts the text from input into radians
             personLocations.push({lat: Math.radians(inputLat), lng: Math.radians(inputLng)});
             var myLatLng = {lat: inputLat, lng: inputLng};
