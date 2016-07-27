@@ -1,5 +1,7 @@
 <?php
 
+$configs = include('config.php');
+
 /**
  * Yelp API v2.0 code sample.
  *
