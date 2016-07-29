@@ -1,6 +1,16 @@
 <?php
 
 $configs = include("config.php");
+
+
+// Create connection
+$conn = new mysqli($configs["DB_HOST"], $configs["DB_USERNAME"], $configs["DB_PASSWORD"], $configs["DB_NAME"]);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
 $cookie_name = "username";
 $username = "";
 
