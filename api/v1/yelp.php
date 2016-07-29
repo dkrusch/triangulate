@@ -1,6 +1,6 @@
 <?php
 
-$configs = include('../../config.php');
+$configs = include("../../config.php");
 
 /**
  * Yelp API v2.0 code sample.
@@ -21,22 +21,20 @@ $configs = include('../../config.php');
  */
 
 // Enter the path that the oauth library is in relation to the php file
-require_once('../../lib/OAuth.php');
+require_once("../../lib/OAuth.php");
 
 // Set your OAuth credentials here  
-// These credentials can be obtained from the 'Manage API Access' page in the
+// These credentials can be obtained from the "Manage API Access" page in the
 // developers documentation (http://www.yelp.com/developers)
 $CONSUMER_KEY = $configs["YELP_CONSUMER_KEY"];
 $CONSUMER_SECRET = $configs["YELP_CONSUMER_SECRET"];
 $TOKEN = $configs["YELP_TOKEN"];
 $TOKEN_SECRET = $configs["YELP_TOKEN_SECRET"];
 
-$API_HOST = 'api.yelp.com';
-$DEFAULT_TERM = 'food';
-$DEFAULT_LOCATION = 'Asheville, NC';
+$API_HOST = "api.yelp.com";
 $SEARCH_LIMIT = 5;
-$SEARCH_PATH = '/v2/search/';
-$BUSINESS_PATH = '/v2/business/';
+$SEARCH_PATH = "/v2/search/";
+$BUSINESS_PATH = "/v2/business/";
 
 function json_response($data = null, $code = 200)
 {
@@ -47,19 +45,19 @@ function json_response($data = null, $code = 200)
     // set the header to make sure cache is forced
     header("Cache-Control: no-transform,public,max-age=300,s-maxage=900");
     // treat this as json
-    header('Content-Type: application/json');
+    header("Content-Type: application/json");
     $status = array(
-        200 => '200 OK',
-        400 => '400 Bad Request',
-        422 => 'Unprocessable Entity',
-        500 => '500 Internal Server Error'
+        200 => "200 OK",
+        400 => "400 Bad Request",
+        422 => "Unprocessable Entity",
+        500 => "500 Internal Server Error"
         );
     // ok, validation error, or failure
-    header('Status: '.$status[$code]);
+    header("Status: ".$status[$code]);
     // return the encoded json
     return json_encode(array(
-        'status' => $code < 300, // success or not?
-        'data' => $data
+        "status" => $code < 300, // success or not?
+        "data" => $data
         ));
 }
 
@@ -74,10 +72,10 @@ function request($host, $path) {
     $unsigned_url = "https://" . $host . $path;
 
     // Token object built using the OAuth library
-    $token = new OAuthToken($GLOBALS['TOKEN'], $GLOBALS['TOKEN_SECRET']);
+    $token = new OAuthToken($GLOBALS["TOKEN"], $GLOBALS["TOKEN_SECRET"]);
 
     // Consumer object built using the OAuth library
-    $consumer = new OAuthConsumer($GLOBALS['CONSUMER_KEY'], $GLOBALS['CONSUMER_SECRET']);
+    $consumer = new OAuthConsumer($GLOBALS["CONSUMER_KEY"], $GLOBALS["CONSUMER_SECRET"]);
 
     // Yelp uses HMAC SHA1 encoding
     $signature_method = new OAuthSignatureMethod_HMAC_SHA1();
@@ -85,7 +83,7 @@ function request($host, $path) {
     $oauthrequest = OAuthRequest::from_consumer_and_token(
         $consumer, 
         $token, 
-        'GET', 
+        "GET", 
         $unsigned_url
     );
     
@@ -99,7 +97,7 @@ function request($host, $path) {
     $ch = curl_init($signed_url);
     if (FALSE === $ch)
     {
-        throw new Exception('Failed to initialize');
+        throw new Exception("Failed to initialize");
     }
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_HEADER, 0);
@@ -123,18 +121,30 @@ function request($host, $path) {
  * Query the Search API by a search term and location 
  * 
  * @param    $term        The search term passed to the API 
- * @param    $location    The search location passed to the API 
+ * @param    $ll          A string of "latitude,longitude" passed to the API. 
+ *                        Takes precedence to $location.
+ * @param    $location    The search location passed to the API. 
+ *                        Only used if $ll is not provided.
  * @return   The JSON response from the request 
  */
-function search($term, $location) {
+function search($term, $ll, $location) 
+{
     $url_params = array();
     
-    $url_params['term'] = $term ?: $GLOBALS['DEFAULT_TERM'];
-    $url_params['location'] = $location?: $GLOBALS['DEFAULT_LOCATION'];
-    $url_params['limit'] = $GLOBALS['SEARCH_LIMIT'];
-    $search_path = $GLOBALS['SEARCH_PATH'] . "?" . http_build_query($url_params);
+    $url_params["term"] = $term;
+    if ($ll)
+    {
+        $url_params["ll"] = $ll;
+    }
+    else
+    {
+        $url_params["location"] = $location;
+    }
     
-    return request($GLOBALS['API_HOST'], $search_path);
+    $url_params["limit"] = $GLOBALS["SEARCH_LIMIT"];
+    $search_path = $GLOBALS["SEARCH_PATH"] . "?" . http_build_query($url_params);
+    
+    return request($GLOBALS["API_HOST"], $search_path);
 }
 
 /**
@@ -144,28 +154,21 @@ function search($term, $location) {
  * @return   The JSON response from the request 
  */
 function get_business($business_id) {
-    $business_path = $GLOBALS['BUSINESS_PATH'] . urlencode($business_id);
+    $business_path = $GLOBALS["BUSINESS_PATH"] . urlencode($business_id);
     
-    return request($GLOBALS['API_HOST'], $business_path);
+    return request($GLOBALS["API_HOST"], $business_path);
 }
 
-/**
- * User input is handled here 
- */
-$longopts  = array(
-    "term::",
-    "location::",
-);
-    
-$options = getopt("", $longopts);
 
-$term = $options['term'] ?: '';
-$location = $options['location'] ?: '';
+$term = $_GET["term"];
+$location = $_GET["location"];
+$ll = $_GET["ll"];
 $status_code = 200;
+
 try
 { 
     
-    $response = json_decode(search($term, $location));
+    $response = json_decode(search($term, $ll, $location));
     
 } catch(Exception $e) 
 {

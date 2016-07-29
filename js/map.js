@@ -80,11 +80,11 @@ var calculateLocation = function(event)
     });
     gmarkers.push(marker);
     
-    $.getJSON("api/v1/yelp.php", function(data)
+    var url = "api/v1/yelp.php?ll=" + lat + "," + lng;
+    $.getJSON(url, function(data)
     {
         console.log(data);
     });
-    
 }
 
 // Pushes objects containing lat and lng into an array
