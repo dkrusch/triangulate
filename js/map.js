@@ -84,7 +84,27 @@ var calculateLocation = function(event)
     $.getJSON(url, function(data)
     {
         console.log(data);
+
+        var businesses = data.data.businesses;
+        for (var i = 0; i < businesses.length; i++)
+        {
+            var lat = businesses[i].location.coordinate.latitude;
+            var lng = businesses[i].location.coordinate.longitude;
+            var businessLatLng = {lat: lat, lng: lng};
+            
+            var marker = new google.maps.Marker(
+            {
+                position: businessLatLng,
+                map: map,
+                title: 'Marker',
+                icon: "http://maps.google.com/mapfiles/ms/icons/yellow-dot.png"
+            });
+            gmarkers.push(marker);
+        }
+        
+        
     });
+    
 }
 
 // Pushes objects containing lat and lng into an array
