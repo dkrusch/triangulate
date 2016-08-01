@@ -11,6 +11,7 @@ Math.degrees = function(radians)
   return radians * 180 / Math.PI;
 };
 
+
 var gmarkers = [];
 
 // Once everything on the page loads call the function
@@ -88,6 +89,8 @@ var calculateLocation = function(event)
         var businesses = data.data.businesses;
         for (var i = 0; i < businesses.length; i++)
         {
+            var name = businesses[i].name;
+            var url = businesses[i].url;
             var lat = businesses[i].location.coordinate.latitude;
             var lng = businesses[i].location.coordinate.longitude;
             var businessLatLng = {lat: lat, lng: lng};
@@ -96,8 +99,18 @@ var calculateLocation = function(event)
             {
                 position: businessLatLng,
                 map: map,
-                title: 'Marker',
+                url: url,
+                title: name,
                 icon: "http://maps.google.com/mapfiles/ms/icons/yellow-dot.png"
+            });
+            
+            marker.addListener('click', function() 
+            {
+                console.log(this);
+                var infowindow = new google.maps.InfoWindow({
+                    content: "<a target='_blank' href='" + this.url  + "'>" + this.title + "</a>"
+                });
+                infowindow.open(map, this);
             });
             gmarkers.push(marker);
         }
