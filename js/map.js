@@ -13,10 +13,26 @@ Math.degrees = function(radians)
 
 
 var gmarkers = [];
+var ginfowindows = [];
+
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+    } else {
+        console.log("Geolocation is not supported by this browser.");
+    }
+}
+function showPosition(position) 
+{
+    var person1 = $("#person1");
+    person1.children("[name='latitude']").val(position.coords.latitude);
+    person1.children("[name='longitude']").val(position.coords.longitude);
+}
 
 // Once everything on the page loads call the function
 $( document ).ready(function()
 {
+    getLocation();
     // When you hit submit run the calculation 
     $("#locationInputs").on("submit", calculateLocation);
 });
@@ -31,6 +47,9 @@ var removeMarkers = function()
     }
     gmarkers = [];
 }
+
+
+
 
 // Takes latitude and longitude values from the inputs and finds the middle point between all of them. 
 var calculateLocation = function(event)
@@ -110,6 +129,10 @@ var calculateLocation = function(event)
                 var infowindow = new google.maps.InfoWindow({
                     content: "<a target='_blank' href='" + this.url  + "'>" + this.title + "</a>"
                 });
+                if (infowindow) 
+                {
+                    infowindow.close();
+                }
                 infowindow.open(map, this);
             });
             gmarkers.push(marker);
