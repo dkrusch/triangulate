@@ -1,14 +1,15 @@
 <?php
 
+
 $configs = include("config.php");
 
-
-// Create connection
+//Create connection
 $conn = new mysqli($configs["DB_HOST"], $configs["DB_USERNAME"], $configs["DB_PASSWORD"], $configs["DB_NAME"]);
 
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+//Check connection
+if ($conn->connect_error) 
+{
+   die("Connection failed: " . $conn->connect_error);
 }
 
 $cookie_name = "username";
@@ -20,6 +21,7 @@ if(isset($_COOKIE[$cookie_name]))
 } 
 else if (isset($_POST["username"])) 
 {
+
 // Look up user in the database
 $user = null;
     if ($user)
@@ -63,6 +65,5 @@ $user = null;
     
     <script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-    <script src="js/base.js"></script>
 </body>
 </html>
